@@ -62,11 +62,53 @@ $superheroes = [
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
   ], 
 ];
+$query = $_GET['query'];
+$query = htmlspecialchars($query);
 
+if ($query == "") {
+    echo "<ul>";
+    foreach ($superheroes as $superhero):
+    echo "<li>{$superhero['alias']}</li>";
+    endforeach;
+    echo "</ul>";
+}else{
+    
+    $hero = "No Hero";
+    foreach ($superheroes as $superhero) {
+        $name = strtoupper($superhero['name']);
+        $alias = strtoupper($superhero['alias']);
+
+        // Check if the query matches the hero name or alias
+        if ($query==$name || $query==$alias){
+            $hero = $superhero;
+        }
+    }
+    if ($hero=="No Hero"){
+        echo "<p id='not-found'>SUPERHERO NOT FOUND</p>";
+    }else{
+        $name = strtoupper($hero['name']);
+        $alias = strtoupper($hero['alias']);
+        $bio = $hero['biography'];
+        echo "<h3>".$name."</h3>";
+        echo "<h4>".$alias."</h3>";
+        echo "<p>".$bio."</p>";
+    }
+}
+
+function searchSuperheroes($query,$superheroes) {
+    $result = "No Hero";
+    foreach ($superheroes as $superhero) {
+        $name = strtoupper($superhero['name']);
+        $alias = strtoupper($superhero['alias']);
+
+        // Check if the query matches the hero name or alias
+        if ($query==$name || $query==$alias){
+            $results = $superhero;
+            $found = 1;
+        }
+    }
+    return $result;
+}
+
+    
 ?>
-
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>

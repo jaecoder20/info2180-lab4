@@ -1,8 +1,12 @@
-
+let searchField;
+let resultsContainer;
+let userInput;
 window.addEventListener('DOMContentLoaded', () => {
-    let button = document.querySelector("button");
+    let button = document.getElementById("button1");
+    resultsContainer = document.getElementById("result")
+    searchField = document.getElementById("search-container")
     console.log(button);
-    button.addEventListener('click',fetchRequest);
+    button.addEventListener('click',getHeroes);
 }); 
 
 
@@ -30,13 +34,42 @@ window.addEventListener('DOMContentLoaded', () => {
 //         alert('There was a problem with the request.');
 //     });
 // }
-let fetchRequest = function(){
-    fetch('http://localhost/info2180-lab4/superheroes.php').then(response => response.text())
-    .then(data => {
-        alert(data);
+// let fetchRequest = function(){
+//     fetch('http://localhost/info2180-lab4/superheroes.php').then(response => response.text())
+//     .then(data => {
+//         alert(data);
+//     })
+//     .catch(error => {
+//         alert('There was a problem with the request.');
+//  });
+// }
+
+function getHeroes(e){
+    e.preventDefault();
+    userInput = searchField.value.toUpperCase();
+    $.ajax({
+        url: 'superheroes.php',
+        type: 'get',
+        data:{query: userInput},
+        success: function(data) {
+            superOutput(data);
+        },
+        error: function(err) {
+            alert(err);
+        }
     })
-    .catch(error => {
-        alert('There was a problem with the request.');
- });
 }
 
+function superOutput(superheroes){
+    clearResults(resultsContainer);
+    let div = document.createElement("div");
+    div.innerHTML = superheroes;
+    resultsContainer.appendChild(div);
+}
+
+
+function clearResults(parentDiv){
+    while (parentDiv.firstChild) {
+        parentDiv.removeChild(parentDiv.firstChild);
+    }
+}
