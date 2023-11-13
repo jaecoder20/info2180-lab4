@@ -90,24 +90,9 @@ if ($query == "") {
         $alias = strtoupper($hero['alias']);
         $bio = $hero['biography'];
         echo "<h3>".$name."</h3>";
-        echo "<h4>".$alias."</h3>";
+        echo "<h4> A.K.A. ".$alias."</h4>";
         echo "<p>".$bio."</p>";
     }
-}
-
-function searchSuperheroes($query,$superheroes) {
-    $result = "No Hero";
-    foreach ($superheroes as $superhero) {
-        $name = strtoupper($superhero['name']);
-        $alias = strtoupper($superhero['alias']);
-
-        // Check if the query matches the hero name or alias
-        if ($query==$name || $query==$alias){
-            $results = $superhero;
-            $found = 1;
-        }
-    }
-    return $result;
 }
 
     

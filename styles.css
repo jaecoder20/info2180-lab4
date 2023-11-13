@@ -49,6 +49,8 @@ input[type="submit"]{
     width: 90px;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
+    
 }
 
 
@@ -70,6 +72,9 @@ input[type="submit"]{
     margin-bottom: 10px;
 }
 
+#result div h3{
+    font-size: 2rem;
+}
 hr{
     margin-left: 280px;
     width: 820px;
